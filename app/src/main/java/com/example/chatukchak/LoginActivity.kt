@@ -7,7 +7,11 @@ import android.widget.Button
 import android.content.Intent
 import android.widget.EditText
 import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 
 class LoginActivity: AppCompatActivity() {
 
@@ -39,6 +43,7 @@ class LoginActivity: AppCompatActivity() {
                 Toast.makeText(this, "Required fields", Toast.LENGTH_SHORT)
 
             }else{
+                signInEmailPass(val_email, val_passw)
 
             }
 
@@ -57,5 +62,64 @@ class LoginActivity: AppCompatActivity() {
         }
     }
 
-    fun_sign
+    override fun onStart() {
+        super.onStart()
+
+        val currentUser = mAuth.currentUser
+        if (currentUser != null) {
+            updateUI(currentUser)
+        }
+    }
+
+    fun signInEmailPass(email: String, passw: String) {
+        var Tag = "ZZZTagFirebase"
+        mAuth.signInWithEmailAndPassword(email, passw).addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                Log.d(Tag, "signInWithEmail:success")
+                val user = mAuth.currentUser
+            } else {
+                Log.w(Tag, "signInWithEmail:failure", task.exception)
+                Toast.makeText(
+                    baseContext,
+                    "Authentication failed",
+                    Toast.LENGTH_SHORT,
+                ).show()
+                updateUI(null)
+            }
+        }
+    }
+    fun updateUI(user: FirebaseUser?){
+
+        if(user != null){
+            var intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }else{
+            Toast.makeText(
+                baseContext,
+                "You did not login",
+                Toast.LENGTH_SHORT,
+            ).show()
+            updateUI(user)
+        }
+
+
+
+
+        /*mAuth.signInWithEmailAndPassword(email, passw).addOnCompleteListener(this, OnCompleteListener<AuthResult> {
+            @Override
+            fun onComplete(result: Task<AuthResult>){
+                if(result.isComplete()){
+                    Log.d(Tag, "Success signin")
+                    Toast.makeText(this, "Success signin", Toast.LENGTH_LONG)
+                }else if (result.isSuccessful){
+                    Log.d(Tag, "Success signin")
+                    Toast.makeText(this, "Success signin", Toast.LENGTH_LONG)
+                }else{
+                    Log.d(Tag, "not successful")
+                    Toast.makeText(this, "Not signin", Toast.LENGTH_LONG)
+                }
+            }
+
+        })*/
+    }
 }
