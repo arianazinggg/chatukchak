@@ -12,40 +12,15 @@
         android:gravity="center"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/editTextText2"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Email"
-            android:textAlignment="center" />
-
-        <EditText
-            android:id="@+id/editTextText"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:ems="10"
-            android:foregroundGravity="center"
-            android:hint="Password"
-            android:inputType="text"
-            android:textAlignment="center" />
 
         <Button
             android:id="@+id/button5"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="Login"
+            android:text="Logout"
             app:cornerRadius="0dp" />
 
-        <Button
-            android:id="@+id/button6"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:text="Register"
-            app:cornerRadius="0dp" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
