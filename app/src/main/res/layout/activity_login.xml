@@ -13,7 +13,7 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/editTextText2"
+            android:id="@+id/loginemail"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -21,7 +21,7 @@
             android:textAlignment="center" />
 
         <EditText
-            android:id="@+id/editTextText"
+            android:id="@+id/loginpassw"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
