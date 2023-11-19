@@ -3,7 +3,8 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="displayName">Display Name</string>
-    <string name="newPassword">New Password</string>
+    <string name="signupEmail">Email</string>
+    <string name="signupPassword">Password</string>
     <string name="confirmPassword">Confirm Password</string>
 
 

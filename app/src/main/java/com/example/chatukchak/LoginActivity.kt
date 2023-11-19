@@ -12,26 +12,54 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
-
+import android.graphics.drawable.ColorDrawable
+import android.util.Patterns
+import androidx.appcompat.app.AlertDialog
+import com.example.chatukchak.databinding.ActivityLoginBinding
 class LoginActivity: AppCompatActivity() {
-
+    private lateinit var binding: ActivityLoginBinding
+    private lateinit var firebaseAuth: FirebaseAuth
+/*
     lateinit var mAuth: FirebaseAuth
-
     lateinit var btnLogin: Button
     lateinit var btnRegister: Button
 
     lateinit var etEmail: EditText
     lateinit var etPassw: EditText
+    */
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        binding = ActivityLoginBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        mAuth = FirebaseAuth.getInstance()
+        firebaseAuth = FirebaseAuth.getInstance()
 
-        Log.d("ZZZTEST", "Called on Create")
-        btnLogin = findViewById(R.id.button5)
-        btnRegister = findViewById(R.id.button6)
+        binding.btnLogin.setOnClickListener {
+            val login_email = binding.loginemail.text.toString()
+            val login_password = binding.loginpassw.text.toString()
+            if (login_email.isNotEmpty() && login_password.isNotEmpty()) {
+                firebaseAuth.signInWithEmailAndPassword(login_email, login_password)
+                    .addOnCompleteListener {
+                        if (it.isSuccessful) {
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                        } else {
+                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                        }
+                    }
+            } else {
+                Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show()
+            }
+        }
+        binding.btnRegister.setOnClickListener {
+            val regisIntent = Intent(this, RegistrationActivity::class.java)
+            startActivity(regisIntent)
+            }
+        }
+    }
+
+/*
         etEmail = findViewById(R.id.loginemail)
         etPassw = findViewById(R.id.loginpassw)
         btnLogin.setOnClickListener {
@@ -123,3 +151,4 @@ class LoginActivity: AppCompatActivity() {
         })*/
     }
 }
+*/
