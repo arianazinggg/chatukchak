@@ -26,22 +26,24 @@ class RegistrationActivity : AppCompatActivity() {
             val password = binding.signupPassword.text.toString()
             val confirmPassword = binding.confirmPassword.text.toString()
 
-            if (email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()){
+            if (displayName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()){
                 if (password == confirmPassword){
                     firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{
                         if (it.isSuccessful){
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
+                            Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
                             finish()
                         } else {
                             Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                         }
+
                     }
                 } else {
-                    Toast.makeText(this, "Registration Unsuccesful", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Make sure all fields are filled", Toast.LENGTH_SHORT).show()
             }
         }
     }

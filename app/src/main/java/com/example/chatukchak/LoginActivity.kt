@@ -44,11 +44,20 @@ class LoginActivity: AppCompatActivity() {
                         if (it.isSuccessful) {
                             val intent = Intent(this, MainActivity::class.java)
                             startActivity(intent)
+                            Toast.makeText(this,"Login Succesful", Toast.LENGTH_SHORT).show()
+
                         } else {
                             Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                         }
                     }
-            } else {
+            }
+            else if (login_email.isEmpty() && login_password.isNotEmpty()){
+                Toast.makeText(this,"Email field can't be blank", Toast.LENGTH_SHORT).show()
+        }
+            else if (login_email.isNotEmpty() && login_password.isEmpty()){
+                Toast.makeText(this,"Password can't be blank", Toast.LENGTH_SHORT).show()
+            }
+            else {
                 Toast.makeText(this, "Fields cannot be empty", Toast.LENGTH_SHORT).show()
             }
         }
