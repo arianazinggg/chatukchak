@@ -20,7 +20,7 @@ class MyAdapter(private val itemList: ArrayList<Item>): RecyclerView.Adapter<MyA
         return MyViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder: MyAdapter.MyViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
        val currentitem = itemList[position]
 
         holder.name.text = currentitem.name

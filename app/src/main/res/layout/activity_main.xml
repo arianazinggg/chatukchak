@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-
+<!--
         <Button
             android:id="@+id/Logout"
             android:layout_width="100dp"
@@ -23,9 +23,9 @@
             android:foregroundGravity="center"
             android:gravity="right"
             android:text="Logout"
-            app:cornerRadius="0dp"
-            app:iconGravity="textTop" />
-
+            app:iconGravity="textTop"
+            app:cornerRadius="0dp"/>
+        -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"

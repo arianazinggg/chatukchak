@@ -26,7 +26,7 @@ import java.util.EventListener
 
 class MainActivity : AppCompatActivity() {
     private lateinit var itemrecyclerView: RecyclerView
-    private lateinit var itemArrayList: ArrayList<Item>
+    private lateinit var itemList: ArrayList<Item>
     private lateinit var db: FirebaseFirestore
     private lateinit var myAdapter: MyAdapter
     private lateinit var btnLogout: Button
@@ -36,10 +36,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         itemrecyclerView = findViewById(R.id.recyclerView)
+        itemrecyclerView.setHasFixedSize(true)
         itemrecyclerView.layoutManager = LinearLayoutManager(this)
 
 
-        itemArrayList = arrayListOf()
+        itemList = ArrayList()
         db = FirebaseFirestore.getInstance()
         db.collection("items").get()
             .addOnSuccessListener {
@@ -47,20 +48,21 @@ class MainActivity : AppCompatActivity() {
                     for (data in it.documents) {
                         val item: Item? = data.toObject(Item::class.java)
                         if (item != null) {
-                            itemArrayList.add(item)
+                            itemList.add(item)
                         }
                     }
-                    itemrecyclerView.adapter = MyAdapter(itemArrayList)
+                    itemrecyclerView.adapter = MyAdapter(itemList)
                 }
             }
             .addOnFailureListener { Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show() }
+/*
         btnLogout = findViewById(R.id.Logout)
         btnLogout.setOnClickListener {
             Firebase.auth.signOut()
-            finish()
+            finish()*/
         }
     }
-}
+
 
 
 
