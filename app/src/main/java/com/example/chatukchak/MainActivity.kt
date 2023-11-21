@@ -1,31 +1,62 @@
 package com.example.chatukchak
 
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.widget.Button
 import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
-import android.widget.Toast.makeText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.Firebase
-import com.google.firebase.auth.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.firestore.DocumentChange
+import com.example.chatukchak.databinding.ActivityMainBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.QuerySnapshot
-import java.util.EventListener
+
+class MainActivity:AppCompatActivity() {
+    lateinit var auth: FirebaseAuth
+    lateinit var db: FirebaseFirestore
+
+    lateinit var binding: ActivityMainBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        auth = FirebaseAuth.getInstance()
+        db = FirebaseFirestore.getInstance()
+
+        fun loadAllData(userID: String) {
+
+            val itemList = ArrayList<Item>()
+
+            db.collection("items").get()
+                .addOnSuccessListener {
+                    if (it.isEmpty) {
+                        Toast.makeText(this@MainActivity, "No Item Found", Toast.LENGTH_SHORT)
+                            .show()
+                        return@addOnSuccessListener
+                    }
+                    for (doc in it) {
+                        val item = doc.toObject(Item::class.java)
+                        itemList.add(item)
+                    }
+
+                    binding.recyclerView.apply {
+                        layoutManager =
+                            LinearLayoutManager(this@MainActivity, RecyclerView.VERTICAL, false)
+                        adapter = MyAdapter(itemList, this@MainActivity)
+                    }
+
+                }
+
+        }
 
 
+    }
+}
+
+/*
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var itemrecyclerView: RecyclerView
+    lateinit var itemrecyclerView: RecyclerView
     private lateinit var itemList: ArrayList<Item>
     private lateinit var db: FirebaseFirestore
     private lateinit var myAdapter: MyAdapter
@@ -39,6 +70,24 @@ class MainActivity : AppCompatActivity() {
         itemrecyclerView.setHasFixedSize(true)
         itemrecyclerView.layoutManager = LinearLayoutManager(this)
 
+        itemList = arrayListOf()
+        db = FirebaseFirestore.getInstance()
+        db = FirebaseFirestore.getInstance()
+        db.collection("items").get()
+            .addOnSuccessListener {
+                if (!it.isEmpty) {
+                    for (data in it.documents) {
+                        val item: Item? = data.toObject(Item::class.java)
+                        if (item != null) {
+                            itemList.add(item)
+                        }
+                    }
+                    itemrecyclerView.adapter = MyAdapter(itemList)
+                }
+            }
+            .addOnFailureListener { Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show() }
+
+        /*
 
         itemList = ArrayList()
         db = FirebaseFirestore.getInstance()
@@ -55,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             .addOnFailureListener { Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show() }
-/*
+
         btnLogout = findViewById(R.id.Logout)
         btnLogout.setOnClickListener {
             Firebase.auth.signOut()
@@ -63,7 +112,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-
+*/
 
 
 
