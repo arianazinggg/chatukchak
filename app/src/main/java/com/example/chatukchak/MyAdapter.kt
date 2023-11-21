@@ -1,77 +1,92 @@
 package com.example.chatukchak
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.squareup.picasso.Picasso
-import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.NonDisposableHandle
-import kotlinx.coroutines.NonDisposableHandle.parent
-import com.example.chatukchak.databinding.ActivityMainBinding
-import com.example.chatukchak.databinding.ItemBinding
 
+/*
+class MyAdapter: RecyclerView.Adapter<MyAdapter.ViewHolder>() {
+        private var items: List<Item> = emptyList()
+        fun setItems(items:List<Item>){
+            this.items = items
+            notifyDataSetChanged()
+        }
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapter.ViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item, parent, false)
+        return ViewHolder(itemView)
 
-class MyAdapter(val itemList: ArrayList<Item>, val context: Context):
-    RecyclerView.Adapter<MyAdapter.MyHolder>(){
-        class MyHolder(val binding:ItemBinding): RecyclerView.ViewHolder(binding.root)
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapter.MyHolder {
-        val binding = ItemBinding.inflate(LayoutInflater.from(context),parent,false)
-        return MyHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: MyAdapter.MyHolder, position: Int) {
-        val item = itemList[position]
-        with(holder){
-            binding.nameContent.text = item.name
-            binding.descriptionContent.text = item.description
-            binding.priceContent.text=item.price.toString()
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val item = items[position]
+        holder.bind(item)
 
-        }
+            //holder.name.text = item.name
+            //holder.description.text = item.description
+            //holder.price.text = item.price.toString()
+            //Glide.with(itemView.context).load(item.photoUrl).into(holder.itemImg)
+
+
     }
 
     override fun getItemCount(): Int {
-        return itemList.size
+        return items.size
+    }
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val name: TextView = itemView.findViewById(R.id.nameContent)
+        private val description: TextView = itemView.findViewById(R.id.descriptionContent)
+        private val price: TextView = itemView.findViewById(R.id.priceContent)
+        private val itemImg: ImageView = itemView.findViewById(R.id.ImgView)
+
+        fun bind(item: Item) {
+            name.text = "${item.name}"
+            description.text = "${item.description}"
+            price.text = item.price.toString()
+
+            if (!item.photoUrl.isNullOrBlank()) {
+                Glide.with(itemView.context).load(item.photoUrl).into(itemImg)
+            }
+
+        }
     }
 }
-/*
-class MyAdapter( val itemList: ArrayList<Item>): RecyclerView.Adapter<MyAdapter.MyViewHolder>(){
+*/
+
+class MyAdapter(private val itemList: ArrayList<Item>): RecyclerView.Adapter<MyAdapter.MyViewHolder>(){
+    class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+        val name : TextView = itemView.findViewById(R.id.nameContent)
+        val description : TextView= itemView.findViewById(R.id.descriptionContent)
+        val price : TextView= itemView.findViewById(R.id.priceContent)
+        //val itemImg : ImageView = itemView.findViewById(R.id.ImgView)
+    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapter.MyViewHolder {
 
-        val itemView= LayoutInflater.from(parent.context).inflate(R.layout.activity_main,
+        val itemView= LayoutInflater.from(parent.context).inflate(R.layout.item,
             parent,false)
         return MyViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-       val currentitem = itemList[position]
-
-        holder.name.text = currentitem.name
-        holder.description.text = currentitem.description
-        holder.price.text = currentitem.price.toString()
-        Picasso.get().load(currentitem.photoUrl).into(holder.itemImg)
+        val item: Item= itemList[position]
+        holder.name.text = itemList[position].name
+        holder.description.text = itemList[position].description
+        holder.price.text = itemList[position].price.toString()
+        //Glide.with(context).load(currentitem.photoUrl).into(holder.itemImg)
     }
 
     override fun getItemCount(): Int {
         return itemList.size
     }
-    class MyViewHolder(itemView:View): RecyclerView.ViewHolder(itemView){
-        val name : TextView= itemView.findViewById(R.id.nameContent)
-        val description : TextView= itemView.findViewById(R.id.descriptionContent)
-        val price : TextView= itemView.findViewById(R.id.priceContent)
-        val itemImg : ImageView = itemView.findViewById(R.id.itemImg)
-    }
+
 
 }
 
 /*
 class MyAdapter(private val userList: ArrayList<User>) : RecyclerView.Adapter<MyAdapter.MyViewHolder>(){
-   
+
     @InternalCoroutinesApi
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapter.MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.activity_main, parent,false)
@@ -94,4 +109,5 @@ class MyAdapter(private val userList: ArrayList<User>) : RecyclerView.Adapter<My
         val Name: TextView = itemView.findViewById(R.id.Name)
         val Description: TextView = itemView.findViewById(R.id.Description)
         val Price: TextView = itemView.findViewById(R.id.price)}
-}*/
+}
+*/
