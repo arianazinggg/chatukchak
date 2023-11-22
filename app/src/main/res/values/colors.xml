@@ -2,4 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name = "chatuk_brown">#E5E0DC</color>
+    <color name = "chatuk_gray">#CDC5BA</color>
 </resources>
