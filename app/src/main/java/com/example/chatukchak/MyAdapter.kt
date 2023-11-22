@@ -1,10 +1,15 @@
 package com.example.chatukchak
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
+import android.widget.Toast.makeText
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
@@ -63,7 +68,7 @@ class MyAdapter(private val itemList: ArrayList<Item>): RecyclerView.Adapter<MyA
         val description : TextView= itemView.findViewById(R.id.descriptionContent)
         val price : TextView= itemView.findViewById(R.id.priceContent)
         val itemImg : ImageView = itemView.findViewById(R.id.itemImg)
-        //val item_layout : CardView = itemView.findViewById(R.id.item)
+        val item_layout : CardView = itemView.findViewById(R.id.item)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyAdapter.MyViewHolder {
 
@@ -78,25 +83,25 @@ class MyAdapter(private val itemList: ArrayList<Item>): RecyclerView.Adapter<MyA
         holder.description.text = itemList[position].description
         holder.price.text = itemList[position].price.toString()
         Picasso.get().load(itemList[position].photoUrl).into(holder.itemImg)
-    }
-/*
+
+
         val cont = holder.item_layout.context
         holder.item_layout.setOnClickListener{
             val intent = Intent(it.context,ViewActivity::class.java)
-            makeText(cont,"The item ${itemList[position].name} is clicked}", LENGTH_SHORT).show()
+            makeText(cont,"The item ${itemList[position].name} is clicked", LENGTH_SHORT).show()
 
             intent.putExtra("itemImgUrl",itemList[position].photoUrl)
             intent.putExtra("name",itemList[position].name)
             intent.putExtra("description",itemList[position].description)
-            intent.putExtra("price",itemList[position].price)
+            intent.putExtra("price",itemList[position].price.toString())
 
             it.context.startActivity(intent)
         }
         holder.item_layout.setOnLongClickListener(View.OnLongClickListener {makeText(cont,"The item ${itemList[position].name} is long clicked",
             Toast.LENGTH_SHORT).show()
         return@OnLongClickListener true
-        })
-        //Glide.with(context).load(itemList[position].photoUrl).into(holder.itemImg)*/
+        })}
+        //Glide.with(context).load(itemList[position].photoUrl).into(holder.itemImg)
 
 
     override fun getItemCount(): Int {
